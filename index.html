@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Fixed-price security and launch-readiness audit for apps built in Lovable, Bolt, Replit, v0 or Cursor. $400, 48 hours, two critical fixes included, all in writing.">
+<meta name="description" content="AI-native security and launch-readiness audit for apps built in Lovable, Bolt, Replit, v0 or Cursor. $400, 48 hours, two critical fixes included, all in writing.">
 <title>Rescue Audit</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
@@ -239,9 +239,9 @@
 
   <div class="hero">
     <div>
-      <p class="eyebrow">For apps built in Lovable, Bolt, Replit, v0 or Cursor</p>
+      <p class="eyebrow">AI-native security audit for apps built in Lovable, Bolt, Replit, v0 or Cursor</p>
       <h1 style="margin-top:14px">It works on your screen. Is it safe in front of customers?</h1>
-      <p class="lede">You built the app. The last 20% is the part the builder can't see: database permissions, keys in the bundle, a Stripe webhook that trusts anyone. We find those in 48 hours, fix the worst two, and hand you a plain-English list of the rest. All in writing, no calls.</p>
+      <p class="lede">You built it with AI. We audit it with AI. A scanner built for the five ways these apps fail, then agents that read every database policy, webhook and key path and write the fixes. A human runs the desk and owns the result. Report in 48 hours, all in writing, no calls.</p>
       <div class="cta">
         <a class="btn" href="#spec">See what's included</a>
         <small>Fixed price. No hourly. Report in 48 hours.</small>
@@ -305,12 +305,12 @@
       <table>
         <thead><tr><th>Included</th><th>Detail</th></tr></thead>
         <tbody>
-          <tr><td>Static scan</td><td>Every file, for leaked keys, public env prefixes, committed .env, admin calls in client code.</td></tr>
+          <tr><td>Agent scan</td><td>Every file, for leaked keys, public env prefixes, committed .env, admin calls in client code. Purpose-built for AI-generated codebases.</td></tr>
           <tr><td>Database review</td><td>RLS on every table, every policy read, tested as an anonymous user and as a second user.</td></tr>
           <tr><td>Payments review</td><td>Stripe webhook verification, server-side pricing, test/live key mixing, production endpoint registered.</td></tr>
           <tr><td>Auth and deploy</td><td>Protected routes in incognito, redirect URLs on the live domain, production build passes, env vars set on the host.</td></tr>
           <tr><td>Your reported bug</td><td>Reproduced, root-caused, fixed or scoped.</td></tr>
-          <tr><td>Two critical fixes</td><td>Top two items, as pull requests you can read, if each is under 30 minutes.</td></tr>
+          <tr><td>Two critical fixes</td><td>Top two items, written by the agents as pull requests you can read, if each is under 30 minutes.</td></tr>
           <tr><td>Written report</td><td>"Do these first" in plain English on top. Technical detail attached for whoever works on it next.</td></tr>
           <tr><td>Written follow-up, 7 days</td><td>Ask anything about the report by email for a week after delivery. Answers in writing, usually same day. Flat quote for anything bigger.</td></tr>
           <tr><td class="not">Not included</td><td class="not">New features, redesigns, rebuilding what the builder got wrong at the root. Those are quoted flat after the audit.</td></tr>
@@ -338,7 +338,7 @@
     <p class="sub">Four steps, in this order, every time.</p>
     <ol class="steps">
       <li><time>Day 0</time><b>Pay and answer six questions</b><p>Live URL, repo invite, what built it, what's connected, what's broken in your words, what "done" means.</p></li>
-      <li><time>Day 0 to 2</time><b>Scan, review, fix</b><p>Automated scan first, then the hands-on checklist. Top two criticals fixed as pull requests on a branch.</p></li>
+      <li><time>Day 0 to 2</time><b>Agents scan, review, fix</b><p>Scanner first, then agents review every finding against the checklist and write the top two fixes as pull requests on a branch. A human checks the output before anything reaches you.</p></li>
       <li><time>Day 2</time><b>Report lands in your inbox</b><p>Plain-English priorities up top, technical detail attached. Questions answered in writing for a week. No calls to schedule.</p></li>
       <li><time>After</time><b>Access removed, keys rotated</b><p>I take myself off the repo and tell you exactly what to rotate. If there's more to do, you have a flat quote.</p></li>
     </ol>
@@ -351,7 +351,7 @@
     <div class="faq" style="margin-top:24px">
       <details>
         <summary>Can't I just ask Lovable to fix it?</summary>
-        <p>For UI, yes, and you should. The problems here are the ones the builder can't see: database permissions, webhook verification, keys in the bundle. Those don't throw errors. They show up as someone else's data in your app.</p>
+        <p>For UI, yes, and you should. The builder optimizes for "it works on screen." Our agents are pointed at the opposite question: how does this break when a stranger uses it? Database permissions, webhook verification, keys in the bundle. Those don't throw errors. They show up as someone else's data in your app.</p>
       </details>
       <details>
         <summary>Is $400 a lot for a look?</summary>
@@ -370,8 +370,8 @@
         <p>Lovable syncs to GitHub from Project Settings in about three minutes. I'll walk you through it. An app that can't be read can't be audited.</p>
       </details>
       <details>
-        <summary>Who is doing the work?</summary>
-        <p>Rescue Audit is run by Nathan Lamar. The technical review combines an automated scanner built for exactly these five problems with an engineering review of every finding, and everything reaches you in writing so there is a record you can hand to the next developer. Email <a href="mailto:Nathanlamar08@gmail.com">Nathanlamar08@gmail.com</a> if you'd rather ask something first.</p>
+        <summary>Who, or what, is doing the work?</summary>
+        <p>AI agents do the reading and the fixing: a scanner built for the five failure patterns in AI-generated apps, then model-driven review of every table policy, webhook and key path, then the fixes as pull requests. Nathan Lamar runs the desk: scopes each job, checks every finding before it goes out, owns the report, and answers your questions. Everything reaches you in writing so there is a record you can hand to the next developer. Email <a href="mailto:Nathanlamar08@gmail.com">Nathanlamar08@gmail.com</a> if you'd rather ask something first.</p>
       </details>
     </div>
   </div>
