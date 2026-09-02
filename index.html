@@ -138,7 +138,7 @@
     background: var(--code-bg); color: var(--code-ink);
     border-radius: 10px; box-shadow: var(--shadow);
     font-family: "JetBrains Mono", ui-monospace, Consolas, monospace;
-    font-size: .8rem; line-height: 1.6; overflow: hidden;
+    font-size: .76rem; line-height: 1.6; overflow: hidden;
   }
   .report header { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,.08); color: var(--code-dim); font-size: .72rem; }
   .report header b { color: var(--code-ink); font-weight: 600; }
@@ -252,12 +252,12 @@
 <pre><span class="d">Framework: vite | Supabase: yes | Stripe: yes | Tables: 9</span>
 
 <span class="c">CRITICAL</span>  Table <b>orders</b> has RLS disabled
-          anon key in browser can read every customer's orders
-<span class="c">CRITICAL</span>  Supabase service_role key in <b>src/lib/admin.ts</b>
+          anon key in browser reads every customer's orders
+<span class="c">CRITICAL</span>  service_role key in <b>src/lib/admin.ts</b>
           bypasses all row security; ships to every visitor
 <span class="c">CRITICAL</span>  Stripe webhook never verifies signature
           anyone can POST "paid" and unlock the paid plan
-<span class="w">HIGH</span>      Table <b>profiles</b>: policy `using (true)` for UPDATE
+<span class="w">HIGH</span>      <b>profiles</b> policy `using (true)` for UPDATE
           any logged-in user can edit any other profile
 <span class="w">HIGH</span>      Admin check exists only in client state
 <span class="g">FIXED</span>     orders RLS + per-user policies (PR #1)
