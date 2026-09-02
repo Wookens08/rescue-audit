@@ -211,7 +211,13 @@
     .spec { grid-template-columns: 1fr; gap: 28px; }
     .steps { grid-template-columns: 1fr 1fr; }
   }
-  @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } .price { flex-wrap: wrap; gap: 18px; } }
+  @media (max-width: 520px) {
+    .steps { grid-template-columns: 1fr; }
+    .price { flex-wrap: wrap; gap: 18px; }
+    .bar nav { display: none; }
+    .report pre { white-space: pre-wrap; word-break: break-word; font-size: .7rem; }
+    .report header { flex-wrap: wrap; gap: 4px; }
+  }
   @media (prefers-reduced-motion: no-preference) {
     .btn { transition: filter .15s ease, transform .15s ease; }
     .btn:active { transform: translateY(1px); }
