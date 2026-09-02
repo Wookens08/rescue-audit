@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Fixed-price security and launch-readiness audit for apps built in Lovable, Bolt, Replit, v0 or Cursor. $400, 48 hours, two critical fixes included.">
+<title>Rescue Audit</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root {
+    --bg: #F3F5F7;
+    --bg-2: #E9EDF1;
+    --ink: #14202B;
+    --ink-2: #4A5866;
+    --ink-3: #7B8794;
+    --line: #D3DAE1;
+    --accent: #D97A06;
+    --accent-ink: #8A4B00;
+    --accent-soft: #FBEBD3;
+    --crit: #B42318;
+    --crit-soft: #FBE4E1;
+    --ok: #1B7F4A;
+    --ok-soft: #DDF2E6;
+    --panel: #FFFFFF;
+    --panel-ink: #14202B;
+    --code-bg: #14202B;
+    --code-ink: #E6EDF3;
+    --code-dim: #8B9AAB;
+    --code-crit: #FF7B6B;
+    --code-warn: #F5B84A;
+    --code-ok: #5CD48F;
+    --shadow: 0 1px 2px rgba(20,32,43,.06), 0 12px 32px -12px rgba(20,32,43,.18);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F171E;
+      --bg-2: #16212A;
+      --ink: #E8EEF3;
+      --ink-2: #AEBAC5;
+      --ink-3: #7F8D9A;
+      --line: #27343F;
+      --accent: #F0A030;
+      --accent-ink: #F6C27A;
+      --accent-soft: #3A2A10;
+      --crit: #FF8A7A;
+      --crit-soft: #3B1A17;
+      --ok: #5CD48F;
+      --ok-soft: #133224;
+      --panel: #16212A;
+      --panel-ink: #E8EEF3;
+      --code-bg: #0A1015;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -12px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F171E;
+    --bg-2: #16212A;
+    --ink: #E8EEF3;
+    --ink-2: #AEBAC5;
+    --ink-3: #7F8D9A;
+    --line: #27343F;
+    --accent: #F0A030;
+    --accent-ink: #F6C27A;
+    --accent-soft: #3A2A10;
+    --crit: #FF8A7A;
+    --crit-soft: #3B1A17;
+    --ok: #5CD48F;
+    --ok-soft: #133224;
+    --panel: #16212A;
+    --panel-ink: #E8EEF3;
+    --code-bg: #0A1015;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -12px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Public Sans", "Segoe UI", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  h1, h2, h3 {
+    font-family: "Bricolage Grotesque", "Arial Narrow", "Helvetica Neue", sans-serif;
+    font-variation-settings: "opsz" 96, "wdth" 90;
+    letter-spacing: -0.015em;
+    line-height: 1.05;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); font-weight: 800; }
+  h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); font-weight: 700; }
+  h3 { font-size: 1.2rem; font-weight: 700; font-variation-settings: "opsz" 40, "wdth" 100; }
+  p { margin: 0; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .eyebrow {
+    font-family: "JetBrains Mono", ui-monospace, Consolas, monospace;
+    font-size: .74rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
+  .fill { color: var(--accent-ink); background: var(--accent-soft); padding: 0 .3em; border-radius: 3px; border-bottom: 1.5px dashed var(--accent); }
+  .btn {
+    display: inline-flex; align-items: center; gap: .6em;
+    background: var(--accent); color: #14202B;
+    font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 1.05rem;
+    padding: .85em 1.4em; border-radius: 6px; text-decoration: none;
+    border: 2px solid transparent;
+  }
+  .btn:hover { filter: brightness(1.06); }
+  .btn:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+
+  /* top bar */
+  .bar { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; gap: 16px; flex-wrap: wrap; }
+  .brand { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 1.15rem; display: flex; align-items: center; gap: .5em; }
+  .brand i { display: inline-block; width: 12px; height: 12px; background: var(--accent); border-radius: 2px; transform: rotate(45deg); }
+  .bar nav { display: flex; gap: 22px; font-size: .95rem; color: var(--ink-2); }
+  .bar nav a { text-decoration: none; }
+  .bar nav a:hover { color: var(--ink); }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; padding: 40px 0 64px; }
+  .hero .lede { font-size: 1.2rem; color: var(--ink-2); max-width: 34rem; margin-top: 20px; }
+  .hero .cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 28px; }
+  .hero .cta small { color: var(--ink-3); font-size: .9rem; }
+  .price { display: flex; gap: 28px; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); }
+  .price div b { display: block; font-family: "Bricolage Grotesque", sans-serif; font-size: 1.7rem; font-weight: 800; font-variation-settings: "wdth" 85; letter-spacing: -.02em; }
+  .price div span { font-size: .85rem; color: var(--ink-3); }
+
+  /* report card */
+  .report {
+    background: var(--code-bg); color: var(--code-ink);
+    border-radius: 10px; box-shadow: var(--shadow);
+    font-family: "JetBrains Mono", ui-monospace, Consolas, monospace;
+    font-size: .8rem; line-height: 1.6; overflow: hidden;
+  }
+  .report header { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,.08); color: var(--code-dim); font-size: .72rem; }
+  .report header b { color: var(--code-ink); font-weight: 600; }
+  .report pre { margin: 0; padding: 16px; overflow-x: auto; white-space: pre; }
+  .report .c { color: var(--code-crit); font-weight: 600; }
+  .report .w { color: var(--code-warn); font-weight: 600; }
+  .report .g { color: var(--code-ok); font-weight: 600; }
+  .report .d { color: var(--code-dim); }
+  .report footer { padding: 10px 16px; border-top: 1px solid rgba(255,255,255,.08); color: var(--code-dim); font-size: .72rem; }
+
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  section > .wrap > h2 { margin-bottom: 10px; }
+  .sub { color: var(--ink-2); max-width: 40rem; margin-bottom: 32px; }
+
+  /* breaks */
+  .breaks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--panel); }
+  .breaks article { padding: 26px 24px; border-right: 1px solid var(--line); display: grid; gap: 10px; align-content: start; }
+  .breaks article:last-child { border-right: 0; }
+  .tag { display: inline-block; font-family: "JetBrains Mono", monospace; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; font-weight: 600; width: max-content; }
+  .tag.crit { background: var(--crit-soft); color: var(--crit); }
+  .tag.warn { background: var(--accent-soft); color: var(--accent-ink); }
+  .breaks p { color: var(--ink-2); font-size: .98rem; }
+  .breaks code { font-family: "JetBrains Mono", monospace; font-size: .85em; background: var(--bg-2); padding: 1px 5px; border-radius: 3px; }
+
+  /* spec */
+  .spec { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .spec table { width: 100%; border-collapse: collapse; font-size: .98rem; }
+  .spec th, .spec td { text-align: left; padding: 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .spec th { font-family: "JetBrains Mono", monospace; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+  .spec td:first-child { font-weight: 600; width: 42%; padding-right: 16px; }
+  .spec td:last-child { color: var(--ink-2); }
+  .spec .not { color: var(--ink-3); }
+  .box { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 28px; box-shadow: var(--shadow); display: grid; gap: 14px; }
+  .box .big { font-family: "Bricolage Grotesque", sans-serif; font-size: 2.6rem; font-weight: 800; letter-spacing: -.02em; font-variation-settings: "wdth" 85; line-height: 1; }
+  .box .big small { font-size: 1rem; font-weight: 500; color: var(--ink-3); font-family: "Public Sans", sans-serif; letter-spacing: 0; margin-left: .4em; }
+  .box ul { margin: 0; padding-left: 1.2em; color: var(--ink-2); display: grid; gap: 6px; }
+  .box .btn { justify-self: start; }
+  .box .fine { font-size: .85rem; color: var(--ink-3); }
+
+  /* steps: a real sequence */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; counter-reset: step; }
+  .steps li { list-style: none; display: grid; gap: 8px; padding-top: 16px; border-top: 2px solid var(--line); position: relative; }
+  .steps li::before { counter-increment: step; content: counter(step, decimal-leading-zero); font-family: "JetBrains Mono", monospace; font-size: .74rem; color: var(--accent-ink); font-weight: 600; letter-spacing: .08em; }
+  .steps li:first-child { border-top-color: var(--accent); }
+  .steps ol, .steps { margin: 0; padding: 0; }
+  .steps b { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 1.1rem; }
+  .steps p { color: var(--ink-2); font-size: .95rem; }
+  .steps time { font-family: "JetBrains Mono", monospace; font-size: .72rem; color: var(--ink-3); }
+
+  /* faq */
+  .faq { display: grid; gap: 0; border-top: 1px solid var(--line); }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq summary { cursor: pointer; padding: 18px 0; font-weight: 600; font-size: 1.05rem; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--ink-3); font-family: "JetBrains Mono", monospace; }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { color: var(--ink-2); padding: 0 0 20px; max-width: 42rem; }
+
+  /* footer cta */
+  .end { text-align: left; padding: 64px 0 40px; }
+  .end .row { display: flex; gap: 32px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+  .end p { color: var(--ink-2); max-width: 32rem; }
+  .foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: .85rem; color: var(--ink-3); padding: 24px 0 40px; border-top: 1px solid var(--line); }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; gap: 32px; padding-top: 16px; }
+    .breaks { grid-template-columns: 1fr; }
+    .breaks article { border-right: 0; border-bottom: 1px solid var(--line); }
+    .breaks article:last-child { border-bottom: 0; }
+    .spec { grid-template-columns: 1fr; gap: 28px; }
+    .steps { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } .price { flex-wrap: wrap; gap: 18px; } }
+  @media (prefers-reduced-motion: no-preference) {
+    .btn { transition: filter .15s ease, transform .15s ease; }
+    .btn:active { transform: translateY(1px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="bar">
+    <div class="brand"><i></i> Rescue Audit</div>
+    <nav>
+      <a href="#breaks">What breaks</a>
+      <a href="#spec">What you get</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">Questions</a>
+    </nav>
+  </div>
+
+  <div class="hero">
+    <div>
+      <p class="eyebrow">For apps built in Lovable, Bolt, Replit, v0 or Cursor</p>
+      <h1 style="margin-top:14px">It works on your screen. Is it safe in front of customers?</h1>
+      <p class="lede">You built the app. The last 20% is the part the builder can't see: database permissions, keys in the bundle, a Stripe webhook that trusts anyone. I find those in 48 hours, fix the worst two, and hand you a plain-English list of the rest.</p>
+      <div class="cta">
+        <a class="btn" href="#spec">See what's included</a>
+        <small>Fixed price. No hourly. Report in 48 hours.</small>
+      </div>
+      <div class="price">
+        <div><b>$400</b><span>flat, paid up front</span></div>
+        <div><b>48h</b><span>from repo access to report</span></div>
+        <div><b>2 fixes</b><span>critical items, included</span></div>
+      </div>
+    </div>
+
+    <div class="report" aria-label="Example audit output">
+      <header><b>AUDIT_orderflow.md</b><span>example, names changed</span></header>
+<pre><span class="d">Framework: vite | Supabase: yes | Stripe: yes | Tables: 9</span>
+
+<span class="c">CRITICAL</span>  Table <b>orders</b> has RLS disabled
+          anon key in browser can read every customer's orders
+<span class="c">CRITICAL</span>  Supabase service_role key in <b>src/lib/admin.ts</b>
+          bypasses all row security; ships to every visitor
+<span class="c">CRITICAL</span>  Stripe webhook never verifies signature
+          anyone can POST "paid" and unlock the paid plan
+<span class="w">HIGH</span>      Table <b>profiles</b>: policy `using (true)` for UPDATE
+          any logged-in user can edit any other profile
+<span class="w">HIGH</span>      Admin check exists only in client state
+<span class="g">FIXED</span>     orders RLS + per-user policies (PR #1)
+<span class="g">FIXED</span>     service_role moved to Edge Function (PR #2)</pre>
+      <footer>Verdict: do not launch until the remaining CRITICAL item is fixed. Quote attached.</footer>
+    </div>
+  </div>
+</div>
+
+<section id="breaks">
+  <div class="wrap">
+    <h2>What actually breaks</h2>
+    <p class="sub">Not layout. Not typos. The three things that show up after launch, when someone else is using it.</p>
+    <div class="breaks">
+      <article>
+        <span class="tag crit">Critical, most common</span>
+        <h3>Your database is open</h3>
+        <p>Supabase tables with Row Level Security off, or on with a policy that says <code>true</code>. The anon key is in every browser. Anyone who opens dev tools can read or edit every row.</p>
+      </article>
+      <article>
+        <span class="tag crit">Critical</span>
+        <h3>Secrets in the bundle</h3>
+        <p>A <code>service_role</code> key, a Stripe secret, or anything behind <code>VITE_</code> / <code>NEXT_PUBLIC_</code> gets shipped to the public. Deleting it later doesn't help. It's in git history and has to be rotated.</p>
+      </article>
+      <article>
+        <span class="tag warn">High</span>
+        <h3>Payments that trust the client</h3>
+        <p>Webhooks with no signature check. Prices sent from the browser. A success page that unlocks features by itself. The builder writes the happy path and nothing else.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="spec">
+  <div class="wrap">
+    <h2>What $400 buys</h2>
+    <p class="sub">A specification, not a promise. Here is exactly what's in the box and what isn't.</p>
+    <div class="spec">
+      <table>
+        <thead><tr><th>Included</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td>Static scan</td><td>Every file, for leaked keys, public env prefixes, committed .env, admin calls in client code.</td></tr>
+          <tr><td>Database review</td><td>RLS on every table, every policy read, tested as an anonymous user and as a second user.</td></tr>
+          <tr><td>Payments review</td><td>Stripe webhook verification, server-side pricing, test/live key mixing, production endpoint registered.</td></tr>
+          <tr><td>Auth and deploy</td><td>Protected routes in incognito, redirect URLs on the live domain, production build passes, env vars set on the host.</td></tr>
+          <tr><td>Your reported bug</td><td>Reproduced, root-caused, fixed or scoped.</td></tr>
+          <tr><td>Two critical fixes</td><td>Top two items, as pull requests you can read, if each is under 30 minutes.</td></tr>
+          <tr><td>Written report</td><td>"Do these first" in plain English on top. Technical detail attached for whoever works on it next.</td></tr>
+          <tr><td>15-minute call</td><td>Walk through the list. Flat quote for anything bigger.</td></tr>
+          <tr><td class="not">Not included</td><td class="not">New features, redesigns, rebuilding what the builder got wrong at the root. Those are quoted flat after the audit.</td></tr>
+        </tbody>
+      </table>
+      <div class="box">
+        <p class="eyebrow">Rescue Audit</p>
+        <div class="big">$400<small>one time</small></div>
+        <ul>
+          <li>Report within 48 hours of repo access</li>
+          <li>Two critical fixes included</li>
+          <li>Quote for the rest, fixed price, no hourly</li>
+          <li>Ongoing option: <b>$500/month</b> for fixes and a monthly check</li>
+        </ul>
+        <a class="btn" id="pay" href="mailto:wookens08@gmail.com?subject=Rescue%20Audit&body=Live%20URL%3A%0ARepo%3A%0AWhat%20built%20it%3A%0AWhat's%20connected%3A%0AWhat's%20broken%3A%0AWhat%20does%20done%20look%20like%3A">Book the audit</a>
+        <p class="fine">After paying, you'll get six intake questions. Repo access starts the clock. Nothing found? You'll be told that, in writing, and you can launch knowing it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <p class="sub">Four steps, in this order, every time.</p>
+    <ol class="steps">
+      <li><time>Day 0</time><b>Pay and answer six questions</b><p>Live URL, repo invite, what built it, what's connected, what's broken in your words, what "done" means.</p></li>
+      <li><time>Day 0 to 2</time><b>Scan, review, fix</b><p>Automated scan first, then the hands-on checklist. Top two criticals fixed as pull requests on a branch.</p></li>
+      <li><time>Day 2</time><b>Report and call</b><p>Plain-English priorities up top, technical detail attached. Fifteen minutes to walk it.</p></li>
+      <li><time>After</time><b>Access removed, keys rotated</b><p>I take myself off the repo and tell you exactly what to rotate. If there's more to do, you have a flat quote.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>Questions founders ask</h2>
+    <div class="faq" style="margin-top:24px">
+      <details>
+        <summary>Can't I just ask Lovable to fix it?</summary>
+        <p>For UI, yes, and you should. The problems here are the ones the builder can't see: database permissions, webhook verification, keys in the bundle. Those don't throw errors. They show up as someone else's data in your app.</p>
+      </details>
+      <details>
+        <summary>Is $400 a lot for a look?</summary>
+        <p>It's a look, two fixes, and a report you can hand to any developer later. If nothing critical turns up you've bought certainty for launch day. Most of the time two or three things turn up that would have cost far more after launch.</p>
+      </details>
+      <details>
+        <summary>I only have one bug. Can you just fix that?</summary>
+        <p>Yes. Same price, you get the bug fixed and the report anyway, because the bug is usually a symptom of something on the list.</p>
+      </details>
+      <details>
+        <summary>How do I know you won't take my code or keys?</summary>
+        <p>Add me as a collaborator on a branch, not an owner. Give me a read-only Supabase role. Rotate keys when we're done. That's what I'd tell you to do with anyone, and it's written into the process.</p>
+      </details>
+      <details>
+        <summary>My project only exists inside Lovable. There's no repo.</summary>
+        <p>Lovable syncs to GitHub from Project Settings in about three minutes. I'll walk you through it. An app that can't be read can't be audited.</p>
+      </details>
+      <details>
+        <summary>Who is doing the work?</summary>
+        <p>Nathan Lamar. I ship production React and Supabase apps and I've spent the last while fixing the same five problems in apps built with AI tools. Email <a href="mailto:wookens08@gmail.com">wookens08@gmail.com</a> if you'd rather ask something first.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="end">
+    <div class="row">
+      <div>
+        <h2>Launch knowing what's behind the door.</h2>
+        <p style="margin-top:10px">Forty-eight hours from now you'll have a list, two fixes, and a straight answer.</p>
+      </div>
+      <a class="btn" href="#spec">Book the audit</a>
+    </div>
+  </div>
+  <div class="foot">
+    <span>Rescue Audit · Nathan Lamar · <a href="mailto:wookens08@gmail.com">wookens08@gmail.com</a></span>
+    <span>Fixed price. Pull requests you can read. Access removed when done.</span>
+  </div>
+</div>
+</body>
+</html>
