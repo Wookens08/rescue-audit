@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="AI-native security and launch-readiness audit for apps built in Lovable, Bolt, Replit, v0 or Cursor. $400, 48 hours, two critical fixes included, all in writing.">
 <title>Rescue Audit</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/mark.svg">
+<link rel="apple-touch-icon" href="/mark-192.png">
+<meta property="og:title" content="Rescue Audit">
+<meta property="og:description" content="AI-native security audit for apps built with AI. $400, 48 hours, two critical fixes included, all in writing.">
+<meta property="og:image" content="https://rescueaudit.dev/og-1200x630.png">
+<meta property="og:url" content="https://rescueaudit.dev/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
   :root {
@@ -118,8 +127,8 @@
 
   /* top bar */
   .bar { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; gap: 16px; flex-wrap: wrap; }
-  .brand { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 1.15rem; display: flex; align-items: center; gap: .5em; }
-  .brand i { display: inline-block; width: 12px; height: 12px; background: var(--accent); border-radius: 2px; transform: rotate(45deg); }
+  .brand { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 1.15rem; display: flex; align-items: center; gap: .45em; text-decoration: none; color: var(--ink); }
+  .brand .mark { flex: none; }
   .bar nav { display: flex; gap: 22px; font-size: .95rem; color: var(--ink-2); }
   .bar nav a { text-decoration: none; }
   .bar nav a:hover { color: var(--ink); }
@@ -228,7 +237,7 @@
 
 <div class="wrap">
   <div class="bar">
-    <div class="brand"><i></i> Rescue Audit</div>
+    <a class="brand" href="https://rescueaudit.dev/" aria-label="Rescue Audit home"><svg class="mark" viewBox="0 0 64 64" width="22" height="22" aria-hidden="true"><polygon points="32,5 59,32 32,59 5,32" fill="var(--accent)" stroke="var(--accent)" stroke-width="6" stroke-linejoin="round"/><polyline points="20,33 29,42 45,24" fill="none" stroke="var(--bg)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg> Rescue Audit</a>
     <nav>
       <a href="#breaks">What breaks</a>
       <a href="#spec">What you get</a>
