@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're booked · Rescue Audit</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="What happens after you book a Rescue Audit: give repo access, get the report and two fixes within 48 hours, then 7 days of written Q&A.">
+<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="/mark.svg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{--bg:#F3F5F7;--bg-2:#E9EDF1;--ink:#14202B;--ink-2:#4A5866;--ink-3:#7B8794;--line:#D3DAE1;--accent:#D97A06;--accent-ink:#8A4B00;--accent-soft:#FBEBD3;--code-bg:#14202B;--code-ink:#E6EDF3;--panel:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F171E;--bg-2:#16212A;--ink:#E8EEF3;--ink-2:#AEBAC5;--ink-3:#7F8D9A;--line:#27343F;--accent:#F0A030;--accent-ink:#F6C27A;--accent-soft:#3A2A10;--code-bg:#0A1015;--panel:#16212A}}
+:root[data-theme="dark"]{--bg:#0F171E;--bg-2:#16212A;--ink:#E8EEF3;--ink-2:#AEBAC5;--ink-3:#7F8D9A;--line:#27343F;--accent:#F0A030;--accent-ink:#F6C27A;--accent-soft:#3A2A10;--code-bg:#0A1015;--panel:#16212A}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans","Segoe UI",system-ui,sans-serif;font-size:17px;line-height:1.6}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px 80px}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:22px 0;gap:16px}
+.brand{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.15rem;display:flex;align-items:center;gap:.45em;text-decoration:none;color:var(--ink)}
+.bar a.back{color:var(--ink-2);text-decoration:none;font-size:.95rem}
+.note{background:var(--accent-soft);color:var(--accent-ink);padding:12px 16px;border-radius:8px;font-size:.95rem;margin:8px 0 28px}
+h1,h2,h3{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"opsz" 96,"wdth" 90;letter-spacing:-.015em;line-height:1.1;text-wrap:balance}
+h1{font-size:clamp(2rem,5vw,2.9rem);font-weight:800;margin:.2em 0 .4em} h2{font-size:1.6rem;font-weight:700;margin:1.8em 0 .5em;padding-top:1em;border-top:1px solid var(--line)} h3{font-size:1.15rem;margin:1.4em 0 .4em}
+p{margin:0 0 1em} p em{color:var(--ink-2)} ol,ul{padding-left:1.3em;margin:0 0 1em} li{margin:.35em 0}
+code{font-family:"JetBrains Mono",monospace;font-size:.86em;background:var(--bg-2);padding:1px 5px;border-radius:3px}
+pre{background:var(--code-bg);color:var(--code-ink);padding:16px;border-radius:8px;overflow-x:auto;font-size:.8rem;line-height:1.55;margin:0 0 1.2em} pre code{background:none;padding:0;font-size:inherit;color:inherit}
+.tw{overflow-x:auto;margin:0 0 1.2em} table{border-collapse:collapse;width:100%;font-size:.95rem} th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top} th{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.cta{margin-top:48px;padding:24px;border:1px solid var(--line);border-radius:10px;background:var(--panel);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.btn{display:inline-flex;background:var(--accent);color:#14202B;font-family:"Bricolage Grotesque",sans-serif;font-weight:700;padding:.8em 1.3em;border-radius:6px;text-decoration:none}
+
+.steps{counter-reset:s;list-style:none;padding:0;margin:0 0 1.5em}
+.steps li{counter-increment:s;position:relative;padding:18px 0 18px 56px;border-top:1px solid var(--line)}
+.steps li:last-child{border-bottom:1px solid var(--line)}
+.steps li::before{content:counter(s);position:absolute;left:0;top:16px;width:36px;height:36px;border-radius:50%;background:var(--accent);color:#14202B;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;display:flex;align-items:center;justify-content:center}
+.steps h3{margin:0 0 .3em}
+.steps p{margin:0 0 .5em;color:var(--ink-2)}
+.steps .you{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent-soft);padding:2px 8px;border-radius:4px;margin-bottom:.4em}
+.steps .me{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);background:var(--bg-2);padding:2px 8px;border-radius:4px;margin-bottom:.4em}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 2em}
+.timeline div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px}
+.timeline b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:1.3rem;font-weight:800}
+.timeline span{color:var(--ink-2);font-size:.95rem}
+@media (max-width:560px){.timeline{grid-template-columns:1fr}}
+details{border:1px solid var(--line);border-radius:8px;padding:10px 16px;margin:0 0 10px;background:var(--panel)}
+summary{cursor:pointer;font-weight:600}
+details p{margin:.6em 0 .4em}
+</style></head><body><div class="wrap">
+<div class="bar"><a class="brand" href="/"><svg viewBox="0 0 64 64" width="22" height="22" aria-hidden="true"><polygon points="32,5 59,32 32,59 5,32" fill="var(--accent)" stroke="var(--accent)" stroke-width="6" stroke-linejoin="round"/><polyline points="20,33 29,42 45,24" fill="none" stroke="var(--bg)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg> Rescue Audit</a><a class="back" href="/sample/">See a sample report &rarr;</a></div>
+
+<h1>You're booked. Here's what happens next.</h1>
+<p>Your payment is in and a receipt is on its way from Stripe. The audit starts the moment I can read your code. Everything below is in writing, on the record, no calls.</p>
+
+<div class="timeline">
+  <div><b>Now</b><span>You give repo access. Two minutes.</span></div>
+  <div><b>Within 48h</b><span>Written report by email, top two fixes as pull requests.</span></div>
+  <div><b>7 days</b><span>Written Q&amp;A on anything in the report, usually same day.</span></div>
+</div>
+
+<h2>The one thing I need from you</h2>
+<ol class="steps">
+  <li><span class="you">You</span><h3>Invite <code>Wookens08</code> to your GitHub repo</h3>
+    <p>Repo &rarr; Settings &rarr; Collaborators &rarr; Add people &rarr; <code>Wookens08</code>. Collaborator is enough, not admin. The 48-hour clock starts when the invite lands.</p>
+    <details><summary>My project only exists in Lovable</summary><p>Lovable syncs to GitHub in three clicks: open the project &rarr; Settings &rarr; GitHub &rarr; Connect. It creates the repo. Then add <code>Wookens08</code> as a collaborator there. Bolt, Replit and v0 all have the same "connect to GitHub" option in project settings.</p></details>
+    <details><summary>I'd rather send a zip</summary><p>That works for the report, but the two fixes then come as patch files instead of pull requests you can merge with one click. A repo invite is better for you. If it has to be a zip, email it to <a href="mailto:Nathanlamar08@gmail.com">Nathanlamar08@gmail.com</a>.</p></details>
+  </li>
+  <li><span class="you">You</span><h3>Optional: read-only Supabase invite</h3>
+    <p>Supabase dashboard &rarr; Organization &rarr; Team &rarr; Invite &rarr; role <b>Developer</b>, email <a href="mailto:Nathanlamar08@gmail.com">Nathanlamar08@gmail.com</a>. This lets me verify Row Level Security on tables that were created in the dashboard instead of in code, which is where most of the real problems hide. Skip it if you prefer; the report will tell you exactly what to check yourself.</p>
+    <p>Never send keys, passwords or service_role tokens in email or chat. I don't need them.</p>
+  </li>
+  <li><span class="me">Me</span><h3>Audit and fixes, within 48 hours</h3>
+    <p>Scanner first, then a full manual read against the checklist: Row Level Security, secrets in the bundle, Stripe webhooks, edge-function auth, migrations, admin checks. You get a report like <a href="/sample/">this one</a>, plus the two most important fixes opened as pull requests on your repo. You review and merge them. I never push to your main branch.</p>
+  </li>
+  <li><span class="me">Me</span><h3>Seven days of written answers</h3>
+    <p>Reply to the report email with any question. Answers in writing, usually the same day. After that I remove my own access and tell you what to rotate, if anything.</p>
+  </li>
+</ol>
+
+<h2>While you wait</h2>
+<p>Read the <a href="/sample/">sample report</a>. It is a real audit of a real Lovable app with the names changed, and it shows the exact format yours will arrive in. If you spot something in there that you already know is true of your app, say so in your first email and I will start there.</p>
+
+<div class="cta"><div><strong>Questions before then?</strong><br><span style="color:var(--ink-2)">Email <a href="mailto:Nathanlamar08@gmail.com">Nathanlamar08@gmail.com</a>. Written reply, usually same day.</span></div></div>
+</div></body></html>
