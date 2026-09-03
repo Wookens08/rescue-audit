@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sample report · Rescue Audit</title>
+<meta name="description" content="What a $400 Rescue Audit report actually looks like: findings, severity, and the two fixes as code.">
+<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="/mark.svg">
+<meta property="og:title" content="Rescue Audit sample report"><meta property="og:image" content="https://rescueaudit.dev/og-1200x630.png"><meta property="og:url" content="https://rescueaudit.dev/sample/">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{--bg:#F3F5F7;--bg-2:#E9EDF1;--ink:#14202B;--ink-2:#4A5866;--ink-3:#7B8794;--line:#D3DAE1;--accent:#D97A06;--accent-ink:#8A4B00;--accent-soft:#FBEBD3;--code-bg:#14202B;--code-ink:#E6EDF3;--panel:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F171E;--bg-2:#16212A;--ink:#E8EEF3;--ink-2:#AEBAC5;--ink-3:#7F8D9A;--line:#27343F;--accent:#F0A030;--accent-ink:#F6C27A;--accent-soft:#3A2A10;--code-bg:#0A1015;--panel:#16212A}}
+:root[data-theme="dark"]{--bg:#0F171E;--bg-2:#16212A;--ink:#E8EEF3;--ink-2:#AEBAC5;--ink-3:#7F8D9A;--line:#27343F;--accent:#F0A030;--accent-ink:#F6C27A;--accent-soft:#3A2A10;--code-bg:#0A1015;--panel:#16212A}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans","Segoe UI",system-ui,sans-serif;font-size:17px;line-height:1.6}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px 80px}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:22px 0;gap:16px}
+.brand{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.15rem;display:flex;align-items:center;gap:.45em;text-decoration:none;color:var(--ink)}
+.bar a.back{color:var(--ink-2);text-decoration:none;font-size:.95rem}
+.note{background:var(--accent-soft);color:var(--accent-ink);padding:12px 16px;border-radius:8px;font-size:.95rem;margin:8px 0 28px}
+h1,h2,h3{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"opsz" 96,"wdth" 90;letter-spacing:-.015em;line-height:1.1;text-wrap:balance}
+h1{font-size:clamp(2rem,5vw,2.9rem);font-weight:800;margin:.2em 0 .4em} h2{font-size:1.6rem;font-weight:700;margin:1.8em 0 .5em;padding-top:1em;border-top:1px solid var(--line)} h3{font-size:1.15rem;margin:1.4em 0 .4em}
+p{margin:0 0 1em} p em{color:var(--ink-2)} ol,ul{padding-left:1.3em;margin:0 0 1em} li{margin:.35em 0}
+code{font-family:"JetBrains Mono",monospace;font-size:.86em;background:var(--bg-2);padding:1px 5px;border-radius:3px}
+pre{background:var(--code-bg);color:var(--code-ink);padding:16px;border-radius:8px;overflow-x:auto;font-size:.8rem;line-height:1.55;margin:0 0 1.2em} pre code{background:none;padding:0;font-size:inherit;color:inherit}
+.tw{overflow-x:auto;margin:0 0 1.2em} table{border-collapse:collapse;width:100%;font-size:.95rem} th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top} th{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.cta{margin-top:48px;padding:24px;border:1px solid var(--line);border-radius:10px;background:var(--panel);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.btn{display:inline-flex;background:var(--accent);color:#14202B;font-family:"Bricolage Grotesque",sans-serif;font-weight:700;padding:.8em 1.3em;border-radius:6px;text-decoration:none}
+</style></head><body><div class="wrap">
+<div class="bar"><a class="brand" href="/"><svg viewBox="0 0 64 64" width="22" height="22" aria-hidden="true"><polygon points="32,5 59,32 32,59 5,32" fill="var(--accent)" stroke="var(--accent)" stroke-width="6" stroke-linejoin="round"/><polyline points="20,33 29,42 45,24" fill="none" stroke="var(--bg)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg> Rescue Audit</a><a class="back" href="/">&larr; What you get</a></div>
+<p class="note">This is what a $400 audit report looks like. Real app, real findings, real fixes. Names changed.</p>
+<h1>Rescue Audit: sample report</h1>
+<p>Prepared for: a caregiver-placement website built with Lovable (Vite, React, Supabase, three edge functions) Date: September 2026 Scope: full repo, migrations, edge functions. Live-app tests and dashboard checks not included in this sample because it was run on a public repo without dashboard access.</p>
+<p><em>Names and identifiers are changed. Findings, code, and fixes are real.</em></p>
+<h2>The short version</h2>
+<p>Not safe to promote yet, and not far off. Two edge functions are callable by anyone on the internet: one spends your OpenAI credits, the other is an open relay into your automation webhook. Both are fixed below. Seven of your eight database tables were created outside migrations, so their access rules can't be verified from the code and need a five-minute check in the Supabase dashboard. Your customer table, by contrast, is locked down properly.</p>
+<h2>Do these first</h2>
+<ol><li>Deploy the fixed <code>blog-ai-assistant</code> function (fix included below). Until then, anyone can run up your OpenAI bill.</li><li>Deploy the fixed <code>n8n-proxy</code> function (fix included below). Until then, anyone can fire your lead automation with fake data.</li><li>Open Supabase, Table Editor, and check the seven tables listed under H1 for the shield icon. Any table without it is readable by every visitor. <code>candidatos_cuidadores_rows</code> holds applicant personal data, so start there.</li><li>Confirm the <code>is_admin()</code> helper is <code>SECURITY DEFINER</code> and reads a table users can't edit. Two minutes, prevents a normal user from making themselves admin.</li><li>Move the anon key out of <code>ChatbotWidget.tsx</code> into the shared client. Cosmetic, but it stops a future copy-paste of the wrong key.</li></ol>
+<h2>What we found</h2>
+<div class="tw"><table><thead><tr><th>#</th><th>Severity</th><th>Issue</th><th>Status</th></tr></thead><tbody><tr><td>1</td><td>High</td><td><code>blog-ai-assistant</code> spends the OpenAI key with no caller check</td><td><strong>Fixed</strong> (PR #1)</td></tr><tr><td>2</td><td>Medium</td><td><code>n8n-proxy</code> relays any request to the automation webhook, no caller check, open CORS</td><td><strong>Fixed</strong> (PR #2)</td></tr><tr><td>3</td><td>High, verify</td><td>7 tables exist only in the dashboard; RLS state unknown from the repo</td><td>Needs dashboard check</td></tr><tr><td>4</td><td>Medium</td><td>Admin checks live in client code; server-side helper exists but not verified</td><td>Needs dashboard check</td></tr><tr><td>5</td><td>Info</td><td>Anon key hardcoded in two client files</td><td>Optional cleanup</td></tr><tr><td>6</td><td>Low</td><td>No <code>.env.example</code></td><td>Optional cleanup</td></tr></tbody></table></div>
+<p>What we checked and found correct: the <code>customer</code> table has row-level security on with owner-or-admin policies, the older wide-open policies were properly dropped in a later migration, no secrets are committed, no <code>service_role</code> key appears anywhere in client code, and no Stripe is wired up yet.</p>
+<h2>Finding 1: anyone can spend your OpenAI credits</h2>
+<p><code>supabase/functions/blog-ai-assistant/index.ts</code> reads <code>OPENAI_API_KEY</code> from your secrets and calls OpenAI for whoever posts to it. It never looks at who is calling. The function is gated by Supabase's anon key, but that key is in your JavaScript bundle, so "gated" means "public."</p>
+<p>Impact: a free GPT endpoint on your bill. At the "generate" action, which asks for 1,000-word articles, a script could burn through a month of credit in an afternoon.</p>
+<p>Fix (PR #1): verify the caller's session before doing anything, and reject anonymous calls.</p>
+<pre><code>// at the top of Deno.serve, before reading the body
+const authHeader = req.headers.get(&quot;Authorization&quot;) ?? &quot;&quot;;
+const jwt = authHeader.replace(/^Bearer\s+/i, &quot;&quot;);
+const supabase = createClient(
+  Deno.env.get(&quot;SUPABASE_URL&quot;)!,
+  Deno.env.get(&quot;SUPABASE_ANON_KEY&quot;)!,
+  { global: { headers: { Authorization: authHeader } } },
+);
+const { data: { user }, error } = await supabase.auth.getUser(jwt);
+if (error || !user) {
+  return new Response(JSON.stringify({ error: &quot;Sign in required.&quot; }),
+    { status: 401, headers: { ...corsHeaders, &quot;Content-Type&quot;: &quot;application/json&quot; } });
+}
+// optional: only editors may use the &quot;generate&quot; action</code></pre>
+<p>Also restrict CORS to your domain once auth is in:</p>
+<pre><code>&quot;Access-Control-Allow-Origin&quot;: &quot;https://www.example.com&quot;,</code></pre>
+<h2>Finding 2: your automation webhook is an open relay</h2>
+<p><code>supabase/functions/n8n-proxy/index.ts</code> takes any POST body and forwards it to a hardcoded n8n webhook. No caller check, <code>Access-Control-Allow-Origin: *</code>. Whatever that webhook does, likely creating a lead and sending a WhatsApp message, anyone can trigger with any payload, from any website.</p>
+<p>Impact: spam leads, fake applicants, and a way to make your automation send messages you didn't write.</p>
+<p>Fix (PR #2): require a shared secret that only your site knows, validate the body shape, and move the webhook URL to a secret.</p>
+<pre><code>const N8N_WEBHOOK_URL = Deno.env.get(&quot;N8N_WEBHOOK_URL&quot;)!;
+const RELAY_SECRET = Deno.env.get(&quot;RELAY_SECRET&quot;)!;
+
+if (req.headers.get(&quot;x-relay-secret&quot;) !== RELAY_SECRET) {
+  return new Response(JSON.stringify({ error: &quot;Forbidden&quot; }),
+    { status: 403, headers: { ...corsHeaders, &quot;Content-Type&quot;: &quot;application/json&quot; } });
+}
+const body = await req.json();
+const allowed = [&quot;name&quot;, &quot;phone&quot;, &quot;email&quot;, &quot;message&quot;, &quot;city&quot;];
+const clean = Object.fromEntries(
+  Object.entries(body).filter(([k, v]) =&gt; allowed.includes(k) &amp;&amp; typeof v === &quot;string&quot; &amp;&amp; v.length &lt; 2000),
+);
+if (!clean.name || !clean.phone) {
+  return new Response(JSON.stringify({ error: &quot;name and phone are required&quot; }),
+    { status: 400, headers: { ...corsHeaders, &quot;Content-Type&quot;: &quot;application/json&quot; } });
+}
+// forward `clean`, not `body`</code></pre>
+<p>A shared secret in a browser bundle is not a strong secret, but it stops drive-by abuse from other sites and scripts. If the form is only used by signed-in users, use the session check from Finding 1 instead.</p>
+<h2>Finding 3: seven tables you can't audit from the code</h2>
+<p>Your generated <code>types.ts</code> lists eight tables. Your migrations create one. The other seven, <code>blog_posts</code>, <code>candidatos_cuidadores_rows</code>, <code>caregivers</code>, <code>content_items</code>, <code>partners</code>, <code>profiles</code>, <code>testimonials</code>, were created in the Supabase dashboard or by the builder without a migration file.</p>
+<p>That means nobody can tell from the repository whether they have row-level security on, or what their policies say. Your July migrations do reference admin policies on several of them, which is a good sign, but the base state is unknown.</p>
+<p>What to do: Supabase, Table Editor, look at each table. A shield icon means RLS is on. Then Authentication, Policies, and confirm each table has at least one policy scoped to the user or to <code>is_admin()</code>. Then run the second-account test from the checklist. Start with <code>candidatos_cuidadores_rows</code>, it holds applicant personal data.</p>
+<p>We'd normally do this with a read-only dashboard invite, and it's covered by the audit.</p>
+<h2>Finding 4: confirm the admin helper is safe</h2>
+<p>Client code checks <code>isAdmin</code> to show or hide admin pages. That's fine for the UI. What matters is the server: your migrations reference an <code>is_admin()</code> function in policies, which is the right pattern. Two things to confirm: that it's declared <code>SECURITY DEFINER</code>, and that it reads a role from a table normal users cannot update. If a user can edit their own <code>profiles.role</code>, the helper is decorative.</p>
+<h2>What's left, and what it costs</h2>
+<p>Findings 1 and 2 are fixed as part of this audit. Findings 3 and 4 need dashboard access and about an hour, which is also included if you send a read-only invite. Nothing here needs a bigger project.</p>
+<p>If you'd like ongoing coverage, that's $500 a month: fixes, small changes, and a monthly check. Cancel any time.</p>
+<h2>Questions</h2>
+<p>Reply by email, any time in the next seven days. Answers in writing, usually the same day.</p>
+<div class="cta"><div><strong>Want this for your app?</strong><br><span style="color:var(--ink-2)">$400, 48 hours, two fixes included, all in writing.</span></div><a class="btn" href="https://buy.stripe.com/00wfZh7F35bh35zh1cbV600">Book the audit</a></div>
+</div></body></html>
